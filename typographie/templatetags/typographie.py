@@ -9,7 +9,6 @@ from django.utils.safestring import mark_safe
 
 from .smartypants import smartyPants
 
-
 register = template.Library()
 
 non_break = "\xa0"
