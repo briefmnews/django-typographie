@@ -1,4 +1,3 @@
-# encoding: utf-8
 from typographie.templatetags.typographie import spaces, _typographie
 from typographie.templatetags.smartypants import smartyPants
 
