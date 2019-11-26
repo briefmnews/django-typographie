@@ -1,2 +1,2 @@
-__version__ = "0.0.2"
-__author__ = "OXYS.net"
+__version__ = "0.1.0"
+__author__ = "OXYS.net / Brief.me"
