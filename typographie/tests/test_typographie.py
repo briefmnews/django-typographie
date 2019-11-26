@@ -1,5 +1,5 @@
-from typographie.templatetags.typographie import spaces, _typographie
-from typographie.templatetags.smartypants import smartyPants
+from ..typographie import spaces, typographie
+from ..smartypants import smartyPants
 
 
 class TestTypographieSpaces(object):
@@ -65,25 +65,17 @@ class TestTypographieSpaces(object):
         text = "10 %"
         assert spaces(text) == "10\xa0%"
 
-    def test_briefme(self):
-        text = "Today in brief.me we talk about"
-        assert (
-            spaces(text) == 'Today in <a href="http://brief.me"'
-            ' style="color: #4a4a4a; text-decoration: none; cursor:'
-            ' default;">brief.me</a> we talk about'
-        )
-
     def test_exponent(self):
         text = "1<sup>er</sup> to see"
-        assert _typographie(text) == "1<sup>er</sup>\u00a0to see"
+        assert typographie(text) == "1<sup>er</sup>\u00a0to see"
 
         other_text = "I<sup>er</sup> to see"
-        assert _typographie(other_text) == "I<sup>er</sup>\u00a0to see"
+        assert typographie(other_text) == "I<sup>er</sup>\u00a0to see"
 
     def test_ampersand(self):
         text = "To test with an ampersand h&m for example"
 
-        assert _typographie(text) == "To test with an ampersand h&m for example"
+        assert typographie(text) == "To test with an ampersand h&m for example"
 
 
 class TestTypographieSmartyPants(object):
