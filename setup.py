@@ -23,5 +23,6 @@ setup(
     classifiers=CLASSIFIERS,
     keywords=KEYWORDS,
     zip_safe=True,
+    python_requires='>=3',
     install_requires=["Django>=2.0"]
 )

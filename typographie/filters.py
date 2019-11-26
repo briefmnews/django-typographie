@@ -1,7 +1,6 @@
 import re
 import html
 
-from django.utils.encoding import force_text as django_force_text
 
 from .registry import register_filter
 from .smartypants import smartyPants
@@ -69,6 +68,7 @@ def unescape(text):
 
 @register_filter
 def force_text(text):
+    from django.utils.encoding import force_text as django_force_text
     return django_force_text(text)
 
 
