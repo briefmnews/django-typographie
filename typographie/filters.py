@@ -62,13 +62,16 @@ def cb_re_parse_content(matchobj):
 # extract content between two tags
 re_content_between_tags = re.compile(r"(>|^)([^<>]*)(<|$)")
 
+
 @register_filter
 def unescape(text):
     return html.unescape(text)
 
+
 @register_filter
 def force_text(text):
     from django.utils.encoding import force_text as django_force_text
+
     return django_force_text(text)
 
 
@@ -125,8 +128,3 @@ def exponent(text):
     text = re_exponent.sub("\\1\\2\\3\\4\u00a0", text)
 
     return text
-
-
-
-
-
