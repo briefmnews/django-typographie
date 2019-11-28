@@ -16,6 +16,7 @@ re_digit = re.compile(r"([0-9])\s", flags=re.U)
 
 re_opening_quote = re.compile('\xab([{}“"])'.format(french_characters))
 re_closing_quote = re.compile("([{},\.…!?;%'’\(\)”\"])\xbb".format(french_characters))
+re_briefme = re.compile("(\sbrief\.me)", flags=re.IGNORECASE)
 
 
 def cb_re_content_between_tags(matchobj):
@@ -38,13 +39,18 @@ def cb_re_content_between_tags(matchobj):
     text = re_percent_with_comma.sub("\\1,\\2\xa0\\3", text)
 
     text = re_digit.sub("\\1\xa0", text)
+    text = re_briefme.sub(
+        '<a href="http://brief.me" style="color: #4a4a4a;'
+        ' text-decoration: none; cursor: default;">\\1</a>',
+        text,
+    )
 
     return "%s%s%s" % (matchobj.group(1), text, matchobj.group(3))
 
 
 # extract html between tags div, p, pre, blockquote
 re_parse_content = re.compile(
-    r"(.*?<[^>]* ?)((?:div|p|pre|blockquote|h4|h6))( ?[^>]*>)(.*?)(</\2>.*?)", flags=re.S + re.U
+    r"(.*?<[^>]* ?)((?:div|p|pre|blockquote|h[1-6]))( ?[^>]*>)(.*?)(</\2>.*?)", flags=re.S + re.U
 )
 
 
