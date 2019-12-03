@@ -36,7 +36,7 @@ def apply_typographie(obj):
         if isinstance(field, str):
             setattr(obj, field_name, typographie(field))
 
-        # This is probably a JSONField
+        #  This is probably a JSONField
         elif isinstance(field, dict):
             try:
                 fields = getattr(obj, f"get_typographie_{field_name}_fields")()
@@ -94,6 +94,7 @@ class TypographieAdmin(admin.ModelAdmin):
 
         return redirect(
             reverse(
-                "admin:{app_label}_{model_name}_change".format(**self._info()), args=(object_id,)
+                "admin:{app_label}_{model_name}_change".format(**self._info()),
+                args=(object_id,),
             )
         )

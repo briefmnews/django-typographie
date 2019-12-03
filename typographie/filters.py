@@ -50,7 +50,8 @@ def cb_re_content_between_tags(matchobj):
 
 # extract html between tags div, p, pre, blockquote
 re_parse_content = re.compile(
-    r"(.*?<[^>]* ?)((?:div|p|pre|blockquote|h[1-6]))( ?[^>]*>)(.*?)(</\2>.*?)", flags=re.S + re.U
+    r"(.*?<[^>]* ?)((?:div|p|pre|blockquote|h[1-6]))( ?[^>]*>)(.*?)(</\2>.*?)",
+    flags=re.S + re.U,
 )
 
 
@@ -129,7 +130,9 @@ def widont(text):
 @register_filter
 def exponent(text):
     """To manage exponent"""
-    re_exponent = re.compile("([0-9]+|[MDCLXVI]+)(<sup>)(re|er|es|e)(</sup>)\s*", flags=re.UNICODE)
+    re_exponent = re.compile(
+        "([0-9]+|[MDCLXVI]+)(<sup>)(re|er|es|e)(</sup>)\s*", flags=re.UNICODE
+    )
     text = force_text(text)
     text = re_exponent.sub("\\1\\2\\3\\4\u00a0", text)
 
