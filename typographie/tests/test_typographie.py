@@ -40,8 +40,8 @@ class TestTypographieSpaces:
         assert typographie(text) == '<a href="">un test</a>\xa0? test'
 
     def test_closing_quotation_mark_with_period(self):
-        text = "test\xbb."
-        assert typographie(text) == "test\xa0\xbb."
+        text = "\xabtest\xbb."
+        assert typographie(text) == "\xab\xa0test\xa0\xbb."
 
     def test_quotation_mark_with_quote(self):
         text = "\xabactualité\xbb</a>."
