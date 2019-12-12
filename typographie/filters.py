@@ -141,3 +141,17 @@ def exponent(text):
     text = re_exponent_sup.sub("\\1\\2\\3\\4\u00a0", text)
 
     return text
+
+
+re_indice = [
+    re.compile("(^|\s)(CO)(2)(\s|\.|$)"),
+]
+
+
+@register_filter
+def indice(text):
+    """Manage indice"""
+    text = force_text(text)
+    for regex in re_indice:
+        text = regex.sub("\\1\\2<sub>\\3</sub>\\4", text)
+    return text
