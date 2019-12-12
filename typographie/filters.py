@@ -127,13 +127,17 @@ def widont(text):
     return text
 
 
+re_exponent_sup = re.compile(
+    "([0-9]+|[MDCLXVI]+)(<sup>)(re|er|es|e|nd)(</sup>)\s*", flags=re.UNICODE
+)
+re_exponent = re.compile("([0-9]+|[MDCLXVI]+)(re|er|es|e|nd)\s*", flags=re.UNICODE)
+
+
 @register_filter
 def exponent(text):
     """To manage exponent"""
-    re_exponent = re.compile(
-        "([0-9]+|[MDCLXVI]+)(<sup>)(re|er|es|e)(</sup>)\s*", flags=re.UNICODE
-    )
     text = force_text(text)
-    text = re_exponent.sub("\\1\\2\\3\\4\u00a0", text)
+    text = re_exponent.sub("\\1<sup>\\2</sup>\u00a0", text)
+    text = re_exponent_sup.sub("\\1\\2\\3\\4\u00a0", text)
 
     return text
