@@ -43,6 +43,10 @@ class TestTypographieSpaces:
         text = "\xabtest\xbb."
         assert typographie(text) == "\xab\xa0test\xa0\xbb."
 
+    def test_replace_quotation_mark(self):
+        text = "\"test\""
+        assert typographie(text) == "\xab\xa0test\xa0\xbb"
+
     def test_quotation_mark_with_quote(self):
         text = "\xabactualité\xbb</a>."
         assert typographie(text) == "\xab\xa0actualité\xa0\xbb</a>."
