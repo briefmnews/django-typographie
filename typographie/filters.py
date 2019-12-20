@@ -133,7 +133,7 @@ re_exponent_sup = re.compile(
 re_exponent = re.compile("([0-9]+|[MDCLXVI]+)(re|er|es|e|nd)\s*", flags=re.UNICODE)
 
 
-@register_filter
+# @register_filter
 def exponent(text):
     """To manage exponent"""
     text = force_text(text)
