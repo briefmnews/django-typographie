@@ -13,7 +13,7 @@ KEYWORDS = "django typogrify french français règles typographiques"
 
 
 setup(
-    name="typographie",
+    name="django-typographie",
     version=typographie.__version__,
     description="""Apply french typografy rules""",
     author=typographie.__author__,
