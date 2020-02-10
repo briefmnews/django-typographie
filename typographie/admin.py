@@ -40,7 +40,7 @@ def apply_typographie(obj):
         elif isinstance(field, dict):
             try:
                 fields = getattr(obj, f"get_typographie_{field_name}_fields")()
-            except AttributeError:
+            except (AttributeError, KeyError):
                 continue
             setattr(obj, field_name, apply_typographie_to_dict(field, fields))
 
