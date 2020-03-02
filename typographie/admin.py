@@ -18,7 +18,12 @@ def apply_typographie_to_dict(d, fields):
         elif isinstance(v, list):
             new_dict[k] = []
             for i in v:
-                new_dict[k].append(apply_typographie_to_dict(i, fields))
+                if isinstance(i, str):
+                    if k in fields:
+                        i = typographie(i)
+                    new_dict[k].append(i)
+                else:
+                    new_dict[k].append(apply_typographie_to_dict(i, fields))
         else:
             if k in fields:
                 v = typographie(v)
