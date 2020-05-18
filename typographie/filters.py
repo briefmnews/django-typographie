@@ -155,3 +155,12 @@ def indice(text):
     for regex in re_indice:
         text = regex.sub("\\1\\2<sub>\\3</sub>\\4", text)
     return text
+
+
+@register_filter
+def metric(text):
+    text = re.sub(r" m2", " m<sup>2</sup>", text)
+    text = re.sub(r" km2", " km<sup>2</sup>", text)
+    text = re.sub(r" m3", " m<sup>3</sup>", text)
+
+    return text
