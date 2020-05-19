@@ -131,17 +131,17 @@ def widont(text):
 def exponent(text):
     """To manage exponent"""
     text = force_text(text)
-    text = re.sub("(^|\s)([1I])(er)(\s|\.|$)", "\\1\\2<sup>\\3</sup>\\4", text)
-    text = re.sub("(^|\s)([1-9]\d{0,2})(e)(\s|\.|$)", "\\1\\2<sup>\\3</sup>\\4", text)
+    text = re.sub("(^|\s)([1I])(er)(\s|\.|,|$)", "\\1\\2<sup>\\3</sup>\\4", text)
+    text = re.sub("(^|\s)([1-9]\d{0,2})(e)(\s|\.|,|$)", "\\1\\2<sup>\\3</sup>\\4", text)
     text = re.sub(
-        "(^|\s)(X{0,3}(IX|IV|V?I{0,3}))(e)(\s|\.|$)", "\\1\\2<sup>\\4</sup>\\5", text
+        "(^|\s)(X{0,3}(IX|IV|V?I{0,3}))(e)(\s|\.|,|$)", "\\1\\2<sup>\\4</sup>\\5", text
     )
 
     return text
 
 
 re_indice = [
-    re.compile("(^|\s)(CO)(2)(\s|\.|$)"),
+    re.compile("(^|\s)(CO)(2)(\s|\.|,|$)"),
 ]
 
 
@@ -156,6 +156,6 @@ def indice(text):
 
 @register_filter
 def metric(text):
-    text = re.sub("(\s)(m|km)([23])(\s|\.|$)", "\\1\\2<sup>\\3</sup>\\4", text)
+    text = re.sub("(\s)(m|km)([23])(\s|\.|,|$)", "\\1\\2<sup>\\3</sup>\\4", text)
 
     return text

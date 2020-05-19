@@ -92,6 +92,8 @@ class TestTypographieExponent:
             ("https://www.lemonde.fr/du-Ier", "https://www.lemonde.fr/du-Ier"),
             ("Le XIXe to see", "Le XIX<sup>e</sup> to see"),
             ("Le XXIe siècle", "Le XXI<sup>e</sup> siècle"),
+            ("Le XXIe, siècle", "Le XXI<sup>e</sup>, siècle"),
+            ("999e, fois", "999<sup>e</sup>, fois"),
         ],
     )
     def test_exponent(self, text, expected):
@@ -103,6 +105,7 @@ class TestTypographieIndice:
         "text, expected",
         [
             ("CO2", "CO<sub>2</sub>"),
+            ("CO2,", "CO<sub>2</sub>,"),
             (" CO2 ", " CO<sub>2</sub> "),
             ("https://www.lemonde.fr/du-CO2", "https://www.lemonde.fr/du-CO2"),
             ("https://www.lemonde.fr/du-CO2 ", "https://www.lemonde.fr/du-CO2 "),
@@ -119,6 +122,7 @@ class TestTypographieMetric:
             (" m2", " m<sup>2</sup>"),
             (" km2", " km<sup>2</sup>"),
             (" m3", " m<sup>3</sup>"),
+            (" m3,", " m<sup>3</sup>,"),
             (" m22", " m22"),
         ],
     )
