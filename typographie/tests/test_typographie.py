@@ -1,7 +1,6 @@
 import pytest
 
-from ..filters import spaces, smartypants, exponent, indice
-from ..typographie import typographie
+from ..filters import spaces, smartypants, exponent, indice, metric
 
 
 class TestTypographieSpaces:
@@ -83,11 +82,14 @@ class TestTypographieExponent:
     @pytest.mark.parametrize(
         "text, expected",
         [
-            ("1<sup>er</sup> to see", "1<sup>er</sup>\u00a0to see"),
-            ("I<sup>er</sup> to see", "I<sup>er</sup>\u00a0to see"),
-            ("1er to see", "1<sup>er</sup>\u00a0to see"),
-            ("2nd to see", "2<sup>nd</sup>\u00a0to see"),
-            ("XIXe to see", "XIX<sup>e</sup>\u00a0to see"),
+            ("Le 1er to see", "Le 1<sup>er</sup> to see"),
+            ("Le 3e to see", "Le 3<sup>e</sup> to see"),
+            ("1er du nom", "1<sup>er</sup> du nom"),
+            ("Le Ier to see", "Le I<sup>er</sup> to see"),
+            ("Ier arrondissement", "I<sup>er</sup> arrondissement"),
+            ("https://www.lemonde.fr/du-Ier", "https://www.lemonde.fr/du-Ier"),
+            ("Le XIXe to see", "Le XIX<sup>e</sup> to see"),
+            ("Le XXIe siècle", "Le XXI<sup>e</sup> siècle"),
         ],
     )
     def test_exponent(self, text, expected):
@@ -106,3 +108,17 @@ class TestTypographieIndice:
     )
     def test_indice(self, text, expected):
         assert indice(text) == expected
+
+
+class TestTypographieMetric:
+    @pytest.mark.parametrize(
+        "text, expected",
+        [
+            (" m2", " m<sup>2</sup>"),
+            (" km2", " km<sup>2</sup>"),
+            (" m3", " m<sup>3</sup>"),
+            (" m22", " m22"),
+        ],
+    )
+    def test_metric(self, text, expected):
+        assert metric(text) == expected
