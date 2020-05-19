@@ -131,9 +131,11 @@ def widont(text):
 def exponent(text):
     """To manage exponent"""
     text = force_text(text)
-    text = re.sub(r"( 1|I)(er)", " \\1<sup>er</sup>", text)
-    text = re.sub(r"( ([0-1]?[0-9]|20))(e)", " \\1<sup>e</sup>", text)
-    text = re.sub(r"( X{0,3}(IX|IV|V?I{0,3}))(e)$", " \\1<sup>e</sup>", text,)
+    text = re.sub("(^|\s)([1I])(er)(\s|\.|$)", "\\1\\2<sup>\\3</sup>\\4", text)
+    text = re.sub("(^|\s)([0-1]?[0-9]|20)(e)(\s|\.|$)", "\\1\\2<sup>\\3</sup>\\4", text)
+    text = re.sub(
+        "(^|\s)(X{0,3}(IX|IV|V?I{0,3}))(e)(\s|\.|$)", "\\1\\2<sup>\\4</sup>\\5", text
+    )
 
     return text
 
@@ -154,8 +156,6 @@ def indice(text):
 
 @register_filter
 def metric(text):
-    text = re.sub(r" m2", " m<sup>2</sup>", text)
-    text = re.sub(r" km2", " km<sup>2</sup>", text)
-    text = re.sub(r" m3", " m<sup>3</sup>", text)
+    text = re.sub("(\s)(m|km)([23])(\s|\.|$)", "\\1\\2<sup>\\3</sup>\\4", text)
 
     return text
