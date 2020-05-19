@@ -85,6 +85,8 @@ class TestTypographieExponent:
             ("Le 1er to see", "Le 1<sup>er</sup> to see"),
             ("Le 3e to see", "Le 3<sup>e</sup> to see"),
             ("1er du nom", "1<sup>er</sup> du nom"),
+            ("99e fois", "99<sup>e</sup> fois"),
+            ("999e fois", "999<sup>e</sup> fois"),
             ("Le Ier to see", "Le I<sup>er</sup> to see"),
             ("Ier arrondissement", "I<sup>er</sup> arrondissement"),
             ("https://www.lemonde.fr/du-Ier", "https://www.lemonde.fr/du-Ier"),

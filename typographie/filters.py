@@ -132,7 +132,7 @@ def exponent(text):
     """To manage exponent"""
     text = force_text(text)
     text = re.sub("(^|\s)([1I])(er)(\s|\.|$)", "\\1\\2<sup>\\3</sup>\\4", text)
-    text = re.sub("(^|\s)([0-1]?[0-9]|20)(e)(\s|\.|$)", "\\1\\2<sup>\\3</sup>\\4", text)
+    text = re.sub("(^|\s)([1-9]\d{0,2})(e)(\s|\.|$)", "\\1\\2<sup>\\3</sup>\\4", text)
     text = re.sub(
         "(^|\s)(X{0,3}(IX|IV|V?I{0,3}))(e)(\s|\.|$)", "\\1\\2<sup>\\4</sup>\\5", text
     )
