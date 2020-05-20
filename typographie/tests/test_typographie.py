@@ -91,9 +91,13 @@ class TestTypographieExponent:
             ("Ier arrondissement", "I<sup>er</sup> arrondissement"),
             ("https://www.lemonde.fr/du-Ier", "https://www.lemonde.fr/du-Ier"),
             ("Le XIXe to see", "Le XIX<sup>e</sup> to see"),
+            ("Le VIe arrondissement", "Le VI<sup>e</sup> arrondissement"),
             ("Le XXIe siècle", "Le XXI<sup>e</sup> siècle"),
             ("Le XXIe, siècle", "Le XXI<sup>e</sup>, siècle"),
             ("999e, fois", "999<sup>e</sup>, fois"),
+            ("e tout seul", "e tout seul"),
+            ("e, tout seul", "e, tout seul"),
+            ("Veux-tu ?", "Veux-tu ?"),
         ],
     )
     def test_exponent(self, text, expected):
