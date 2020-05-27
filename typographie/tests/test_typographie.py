@@ -94,6 +94,7 @@ class TestTypographieExponent:
             ("Le VIe arrondissement", "Le VI<sup>e</sup> arrondissement"),
             ("Le XXIe siècle", "Le XXI<sup>e</sup> siècle"),
             ("Le XXIe, siècle", "Le XXI<sup>e</sup>, siècle"),
+            ("Le XVIIIe, siècle", "Le XVIII<sup>e</sup>, siècle"),
             ("999e, fois", "999<sup>e</sup>, fois"),
             ("e tout seul", "e tout seul"),
             ("e, tout seul", "e, tout seul"),
