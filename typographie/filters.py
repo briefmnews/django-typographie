@@ -134,7 +134,7 @@ def exponent(text):
     text = re.sub("(^|\s)([1I])(er)(\s|\.|,|$)", "\\1\\2<sup>\\3</sup>\\4", text)
     text = re.sub("(^|\s)([1-9]\d{0,2})(e)(\s|\.|,|$)", "\\1\\2<sup>\\3</sup>\\4", text)
     text = re.sub(
-        "(^|\s)([XIV]{1,3})(e)(\s|\.|,|$)", "\\1\\2<sup>\\3</sup>\\4", text
+        "(^|\s)([XIV]{1,5})(e)(\s|\.|,|$)", "\\1\\2<sup>\\3</sup>\\4", text
     )
 
     return text
