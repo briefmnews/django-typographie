@@ -2,7 +2,7 @@ django-typographie
 ==================
 [![Python 3.7](https://img.shields.io/badge/python-3.7-blue.svg)](https://www.python.org/downloads/release/python-370/) 
 [![Django 2.2](https://img.shields.io/badge/django-2.2-blue.svg)](https://docs.djangoproject.com/en/2.2/)
-![Python CI](https://github.com/briefmnews/django-typographie/workflows/Python%20CI/badge.svg)
+[![Python CI](https://github.com/briefmnews/django-typographie/workflows/Python%20CI/badge.svg)](https://github.com/briefmnews/django-typographie/actions?query=workflow%3A%22Python+CI%22)
 [![codecov](https://codecov.io/gh/briefmnews/django-typographie/branch/master/graph/badge.svg)](https://codecov.io/gh/briefmnews/django-typographie)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/python/black) 
 
