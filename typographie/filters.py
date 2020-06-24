@@ -11,7 +11,9 @@ french_characters = "A-Za-z0-9àâéèêëîïôöùûüçœ€°ÀÂÉÈÊËÎ�
 
 # percent 9% and 9 %
 re_percent = re.compile(r"([0-9])\s*(%)", flags=re.U)
-re_percent_with_comma = re.compile(r"([0-9]+)\s*,\s*([0-9]+)\s*(%)", flags=re.U)
+re_percent_with_comma = re.compile(
+    r"(^|\s)([0-9]\d{0,2})\s*,\s*([0-9]+)\s*(%)", flags=re.U
+)
 re_digit = re.compile(r"([0-9])\s", flags=re.U)
 
 re_opening_quote = re.compile('\xab([{}“"])'.format(french_characters))
@@ -36,7 +38,7 @@ def cb_re_content_between_tags(matchobj):
 
     # replace any white space between an integer and % and replace it with \xa0
     text = re_percent.sub("\\1\xa0\\2", text)
-    text = re_percent_with_comma.sub("\\1,\\2\xa0\\3", text)
+    text = re_percent_with_comma.sub("\\1\\2,\\3\xa0\\4", text)
 
     text = re_digit.sub("\\1\xa0", text)
     text = re_briefme.sub(
@@ -132,16 +134,16 @@ def exponent(text):
     """To manage exponent"""
     text = force_text(text)
     text = re.sub("(^|\s)([1I])(er)(\s|\.|,|$)", "\\1\\2<sup>\\3</sup>\\4", text)
-    text = re.sub("(^|\s)([1-9]\d{0,2})(e)(\s|\.|,|$)", "\\1\\2<sup>\\3</sup>\\4", text)
-    text = re.sub(
-        "(^|\s)([XIV]{1,5})(e)(\s|\.|,|$)", "\\1\\2<sup>\\3</sup>\\4", text
-    )
+    text = re.sub("(^|\s)([1-9]\d{0,2})(e)(\.|,|$)", "\\1\\2<sup>\\3</sup>\\4", text)
+    text = re.sub("(^|\s)([1-9]\d{0,2})(e)(\s)", "\\1\\2<sup>\\3</sup>\xa0", text)
+    text = re.sub("(^|\s)([XIV]{1,5})(e)(\.|,|$)", "\\1\\2<sup>\\3</sup>\\4", text)
+    text = re.sub("(^|\s)([XIV]{1,5})(e)(\s)", "\\1\\2<sup>\\3</sup>\xa0", text)
 
     return text
 
 
 re_indice = [
-    re.compile("(^|\s)(CO)(2)(\s|\.|,|$)"),
+    re.compile("(^|\s|\()(CO)(2)(\s|\.|,|<|\)|$)"),
 ]
 
 
@@ -156,6 +158,7 @@ def indice(text):
 
 @register_filter
 def metric(text):
-    text = re.sub("(\s)(m|km)([23])(\s|\.|,|$)", "\\1\\2<sup>\\3</sup>\\4", text)
+    text = re.sub("(\s)(m|km)([23])(\)|\.|,|$)", "\\1\\2<sup>\\3</sup>\\4", text)
+    text = re.sub("(\s)(m|km)([23])(\s)", "\\1\\2<sup>\\3</sup>\xa0", text)
 
     return text
