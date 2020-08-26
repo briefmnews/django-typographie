@@ -42,7 +42,7 @@ def cb_re_content_between_tags(matchobj):
 
     text = re_digit.sub("\\1\xa0", text)
     text = re_briefme.sub(
-        '<a href="http://brief.me" style="color: #4a4a4a;'
+        '<a href="http://brief.me" style="color: inherit;'
         ' text-decoration: none; cursor: default;">\\1</a>',
         text,
     )
