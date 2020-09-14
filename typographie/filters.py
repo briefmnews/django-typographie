@@ -42,7 +42,7 @@ def cb_re_content_between_tags(matchobj):
 
     text = re_digit.sub("\\1\xa0", text)
     text = re_briefme.sub(
-        ' B&#x200b;r&#x200b;i&#x200b;e&#x200b;f&#x200b;.&#x200b;m&#x200b;e',
+        ' B&zwnj;r&zwnj;i&zwnj;e&zwnj;f&zwnj;.&zwnj;m&zwnj;e',
         text,
     )
 
