@@ -1,6 +1,6 @@
 import pytest
 
-from ..filters import spaces, smartypants, indice, metric
+from ..filters import spaces, smartypants, metric
 from ..typographie import typographie
 
 
@@ -118,28 +118,25 @@ class TestTypographieCbReContentBetweenTags:
     def test_exponent(self, text, expected):
         assert typographie(text) == expected
 
-
-class TestTypographieSmartyPants(object):
-    def test_replace_quotes(self):
-        text = '"test"'
-        assert smartypants(text) == "\xabtest\xbb"
-
-
-class TestTypographieIndice:
     @pytest.mark.parametrize(
         "text, expected",
         [
             ("CO2", "CO<sub>2</sub>"),
             ("CO2,", "CO<sub>2</sub>,"),
-            (" CO2 ", " CO<sub>2</sub> "),
+            ("Le CO2 test", "Le CO<sub>2</sub>\xa0test"),
             ("https://www.lemonde.fr/du-CO2", "https://www.lemonde.fr/du-CO2"),
-            ("https://www.lemonde.fr/du-CO2 ", "https://www.lemonde.fr/du-CO2 "),
             ("CO2</strong>", "CO<sub>2</sub></strong>"),
             ("(CO2)", "(CO<sub>2</sub>)"),
         ],
     )
     def test_indice(self, text, expected):
-        assert indice(text) == expected
+        assert typographie(text) == expected
+
+
+class TestTypographieSmartyPants(object):
+    def test_replace_quotes(self):
+        text = '"test"'
+        assert smartypants(text) == "\xabtest\xbb"
 
 
 class TestTypographieMetric:
