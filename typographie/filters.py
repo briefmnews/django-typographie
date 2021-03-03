@@ -19,6 +19,13 @@ re_digit = re.compile(r"([0-9])\s", flags=re.U)
 re_opening_quote = re.compile('\xab([{}“"])'.format(french_characters))
 re_closing_quote = re.compile("([{},\.…!?;%'’\(\)”\"])\xbb".format(french_characters))
 re_briefme = re.compile("(\sbrief\.me)", flags=re.IGNORECASE)
+re_exponent = [
+    (re.compile("(^|\s)([1I])(er)(\s|\.|,|$)"), "\\1\\2<sup>\\3</sup>\\4"),
+    (re.compile("(^|\s)([1-9]\d{0,2})(e)(\.|,|$)"), "\\1\\2<sup>\\3</sup>\\4"),
+    (re.compile("(^|\s)([1-9]\d{0,2})(e)(\s)"), "\\1\\2<sup>\\3</sup>\xa0"),
+    (re.compile("(^|\s)([XIV]{1,5})(e)(\.|,|$)"), "\\1\\2<sup>\\3</sup>\\4"),
+    (re.compile("(^|\s)([XIV]{1,5})(e)(\s)"), "\\1\\2<sup>\\3</sup>\xa0"),
+]
 
 
 def cb_re_content_between_tags(matchobj):
@@ -45,6 +52,10 @@ def cb_re_content_between_tags(matchobj):
         ' B&zwnj;r&zwnj;i&zwnj;e&zwnj;f&zwnj;.&zwnj;m&zwnj;e',
         text,
     )
+
+    # Handle exponenets for roman / arabic numerals
+    for regex, replace in re_exponent:
+        text = regex.sub(replace, text)
 
     return "%s%s%s" % (matchobj.group(1), text, matchobj.group(3))
 
@@ -125,19 +136,6 @@ widont_finder = re.compile(
 
 def widont(text):
     text = widont_finder.sub("\\1\xa0\\2", text)
-    return text
-
-
-@register_filter
-def exponent(text):
-    """To manage exponent"""
-    text = force_text(text)
-    text = re.sub("(^|\s)([1I])(er)(\s|\.|,|$)", "\\1\\2<sup>\\3</sup>\\4", text)
-    text = re.sub("(^|\s)([1-9]\d{0,2})(e)(\.|,|$)", "\\1\\2<sup>\\3</sup>\\4", text)
-    text = re.sub("(^|\s)([1-9]\d{0,2})(e)(\s)", "\\1\\2<sup>\\3</sup>\xa0", text)
-    text = re.sub("(^|\s)([XIV]{1,5})(e)(\.|,|$)", "\\1\\2<sup>\\3</sup>\\4", text)
-    text = re.sub("(^|\s)([XIV]{1,5})(e)(\s)", "\\1\\2<sup>\\3</sup>\xa0", text)
-
     return text
 
 

@@ -1,6 +1,6 @@
 import pytest
 
-from ..filters import spaces, smartypants, exponent, indice, metric
+from ..filters import spaces, smartypants, indice, metric
 from ..typographie import typographie
 
 
@@ -89,14 +89,6 @@ class TestTypographieCbReContentBetweenTags:
     def test_cb_re_content_between_tags(self, text, expected):
         assert typographie(text) == expected
 
-
-class TestTypographieSmartyPants(object):
-    def test_replace_quotes(self):
-        text = '"test"'
-        assert smartypants(text) == "\xabtest\xbb"
-
-
-class TestTypographieExponent:
     @pytest.mark.parametrize(
         "text, expected",
         [
@@ -116,11 +108,21 @@ class TestTypographieExponent:
             ("999e, fois", "999<sup>e</sup>, fois"),
             ("e tout seul", "e tout seul"),
             ("e, tout seul", "e, tout seul"),
-            ("Veux-tu ?", "Veux-tu ?"),
+            ("Veux-tu ?", "Veux-tu\xa0?"),
+            (
+                "<a title='Le 26e rapport'>Ceci est une 26e rapport</a>",
+                "<a title='Le 26e rapport'>Ceci est une 26<sup>e</sup>\xa0rapport</a>",
+            ),
         ],
     )
     def test_exponent(self, text, expected):
-        assert exponent(text) == expected
+        assert typographie(text) == expected
+
+
+class TestTypographieSmartyPants(object):
+    def test_replace_quotes(self):
+        text = '"test"'
+        assert smartypants(text) == "\xabtest\xbb"
 
 
 class TestTypographieIndice:
