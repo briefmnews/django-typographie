@@ -1,6 +1,6 @@
 import pytest
 
-from ..filters import spaces, smartypants, metric
+from ..filters import spaces, smartypants
 from ..typographie import typographie
 
 
@@ -132,28 +132,26 @@ class TestTypographieCbReContentBetweenTags:
     def test_indice(self, text, expected):
         assert typographie(text) == expected
 
+    @pytest.mark.parametrize(
+        "text, expected",
+        [
+            ("m2", "m<sup>2</sup>"),
+            ("m2)", "m<sup>2</sup>)"),
+            ("km2", "km<sup>2</sup>"),
+            ("m3", "m<sup>3</sup>"),
+            ("Un volume de 23 m3,", "Un volume de 23\xa0m<sup>3</sup>,"),
+            ("m22", "m22"),
+            (
+                "Un espace de 34 m2 de surface",
+                "Un espace de 34\xa0m<sup>2</sup>\xa0de surface",
+            ),
+        ],
+    )
+    def test_metric(self, text, expected):
+        assert typographie(text) == expected
+
 
 class TestTypographieSmartyPants(object):
     def test_replace_quotes(self):
         text = '"test"'
         assert smartypants(text) == "\xabtest\xbb"
-
-
-class TestTypographieMetric:
-    @pytest.mark.parametrize(
-        "text, expected",
-        [
-            (" m2", " m<sup>2</sup>"),
-            (" m2)", " m<sup>2</sup>)"),
-            (" km2", " km<sup>2</sup>"),
-            (" m3", " m<sup>3</sup>"),
-            (" m3,", " m<sup>3</sup>,"),
-            (" m22", " m22"),
-            (
-                "Un espace de 34 m2 de surface",
-                "Un espace de 34 m<sup>2</sup>\xa0de surface",
-            ),
-        ],
-    )
-    def test_metric(self, text, expected):
-        assert metric(text) == expected

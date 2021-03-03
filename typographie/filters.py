@@ -29,6 +29,10 @@ re_exponent = [
 re_indice = [
     re.compile("(^|\s|\()(CO)(2)(\s|\.|,|<|\)|$)"),
 ]
+re_metric = [
+    (re.compile("(^|\s)(m|km)([23])(\)|\.|,|$)"), "\\1\\2<sup>\\3</sup>\\4"),
+    (re.compile("(^|\s)(m|km)([23])(\s)"), "\\1\\2<sup>\\3</sup>\xa0"),
+]
 
 
 def cb_re_content_between_tags(matchobj):
@@ -60,6 +64,10 @@ def cb_re_content_between_tags(matchobj):
     # Handle indice
     for regex in re_indice:
         text = regex.sub("\\1\\2<sub>\\3</sub>\\4", text)
+
+    # Handle metric
+    for regex, replace in re_metric:
+        text = regex.sub(replace, text)
 
     return "%s%s%s" % (matchobj.group(1), text, matchobj.group(3))
 
@@ -140,12 +148,4 @@ widont_finder = re.compile(
 
 def widont(text):
     text = widont_finder.sub("\\1\xa0\\2", text)
-    return text
-
-
-@register_filter
-def metric(text):
-    text = re.sub("(\s)(m|km)([23])(\)|\.|,|$)", "\\1\\2<sup>\\3</sup>\\4", text)
-    text = re.sub("(\s)(m|km)([23])(\s)", "\\1\\2<sup>\\3</sup>\xa0", text)
-
     return text
