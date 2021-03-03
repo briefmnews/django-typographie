@@ -48,10 +48,7 @@ def cb_re_content_between_tags(matchobj):
     text = re_percent_with_comma.sub("\\1\\2,\\3\xa0\\4", text)
 
     text = re_digit.sub("\\1\xa0", text)
-    text = re_briefme.sub(
-        ' B&zwnj;r&zwnj;i&zwnj;e&zwnj;f&zwnj;.&zwnj;m&zwnj;e',
-        text,
-    )
+    text = re_briefme.sub(" B&zwnj;r&zwnj;i&zwnj;e&zwnj;f&zwnj;.&zwnj;m&zwnj;e", text,)
 
     # Handle exponenets for roman / arabic numerals
     for regex, replace in re_exponent:
