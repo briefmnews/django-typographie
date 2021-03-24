@@ -92,13 +92,13 @@ class TestTypographieCbReContentBetweenTags:
     @pytest.mark.parametrize(
         "text, expected",
         [
-            ("Le 1er to see", "Le 1<sup>er</sup> to see"),
+            ("Le 1er to see", "Le 1<sup>er</sup>\xa0to see"),
             ("Le 3e to see", "Le 3<sup>e</sup>\xa0to see"),
-            ("1er du nom", "1<sup>er</sup> du nom"),
+            ("1er du nom", "1<sup>er</sup>\xa0du nom"),
             ("99e fois", "99<sup>e</sup>\xa0fois"),
             ("999e fois", "999<sup>e</sup>\xa0fois"),
-            ("Le Ier to see", "Le I<sup>er</sup> to see"),
-            ("Ier arrondissement", "I<sup>er</sup> arrondissement"),
+            ("Le Ier to see", "Le I<sup>er</sup>\xa0to see"),
+            ("Ier arrondissement", "I<sup>er</sup>\xa0arrondissement"),
             ("https://www.lemonde.fr/du-Ier", "https://www.lemonde.fr/du-Ier"),
             ("Le XIXe to see", "Le XIX<sup>e</sup>\xa0to see"),
             ("Le VIe arrondissement", "Le VI<sup>e</sup>\xa0arrondissement"),
@@ -148,6 +148,12 @@ class TestTypographieCbReContentBetweenTags:
         ],
     )
     def test_metric(self, text, expected):
+        assert typographie(text) == expected
+
+    @pytest.mark.parametrize(
+        "text, expected", [("CAC 40", "CAC\xa040"),],
+    )
+    def test_non_breaking_space(self, text, expected):
         assert typographie(text) == expected
 
 
