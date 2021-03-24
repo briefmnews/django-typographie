@@ -129,10 +129,6 @@ def ellipsis(text):
 
 @register_filter
 def spaces(text):
-    # let's remove the nbsp before
-    text = text.replace("&nbsp;", "")
-    text = text.replace(non_break, " ")
-
     text = text.strip()
     if re_parse_content.match(text) is not None:
         text = re_parse_content.sub(cb_re_parse_content, text)
