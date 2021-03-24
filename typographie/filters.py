@@ -16,22 +16,26 @@ re_percent_with_comma = re.compile(
 )
 re_digit = re.compile(r"([0-9])\s", flags=re.U)
 
-re_opening_quote = re.compile('\xab([{}“"])'.format(french_characters))
-re_closing_quote = re.compile("([{},\.…!?;%'’\(\)”\"])\xbb".format(french_characters))
-re_briefme = re.compile("(\sbrief\.me)", flags=re.IGNORECASE)
+re_opening_quote = re.compile(r'\xab([{}“"])'.format(french_characters))
+re_closing_quote = re.compile(r"([{},\.…!?;%'’\(\)”\"])\xbb".format(french_characters))
+re_briefme = re.compile(r"(\sbrief\.me)", flags=re.IGNORECASE)
 re_exponent = [
-    (re.compile("(^|\s)([1I])(er)(\s|\.|,|$)"), "\\1\\2<sup>\\3</sup>\\4"),
-    (re.compile("(^|\s)([1-9]\d{0,2})(e)(\.|,|$)"), "\\1\\2<sup>\\3</sup>\\4"),
-    (re.compile("(^|\s)([1-9]\d{0,2})(e)(\s)"), "\\1\\2<sup>\\3</sup>\xa0"),
-    (re.compile("(^|\s)([XIV]{1,5})(e)(\.|,|$)"), "\\1\\2<sup>\\3</sup>\\4"),
-    (re.compile("(^|\s)([XIV]{1,5})(e)(\s)"), "\\1\\2<sup>\\3</sup>\xa0"),
+    (re.compile(r"(^|\s)([1I])(er)(\s)"), "\\1\\2<sup>\\3</sup>\xa0"),
+    (re.compile(r"(^|\s)([1I])(er)(\.|,|$)"), "\\1\\2<sup>\\3</sup>\\4"),
+    (re.compile(r"(^|\s)([1-9]\d{0,2})(e)(\.|,|$)"), "\\1\\2<sup>\\3</sup>\\4"),
+    (re.compile(r"(^|\s)([1-9]\d{0,2})(e)(\s)"), "\\1\\2<sup>\\3</sup>\xa0"),
+    (re.compile(r"(^|\s)([XIV]{1,5})(e)(\.|,|$)"), "\\1\\2<sup>\\3</sup>\\4"),
+    (re.compile(r"(^|\s)([XIV]{1,5})(e)(\s)"), "\\1\\2<sup>\\3</sup>\xa0"),
+]
+re_non_breaking_space = [
+    (re.compile(r"(^|\s)(CAC)(\s)(40)"), "\\1\\2\xa0\\4"),
 ]
 re_indice = [
-    re.compile("(^|\s|\()(CO)(2)(\s|\.|,|<|\)|$)"),
+    re.compile(r"(^|\s|\()(CO)(2)(\s|\.|,|<|\)|$)"),
 ]
 re_metric = [
-    (re.compile("(^|\s)(m|km)([23])(\)|\.|,|$)"), "\\1\\2<sup>\\3</sup>\\4"),
-    (re.compile("(^|\s)(m|km)([23])(\s)"), "\\1\\2<sup>\\3</sup>\xa0"),
+    (re.compile(r"(^|\s)(m|km)([23])(\)|\.|,|$)"), "\\1\\2<sup>\\3</sup>\\4"),
+    (re.compile(r"(^|\s)(m|km)([23])(\s)"), "\\1\\2<sup>\\3</sup>\xa0"),
 ]
 
 
@@ -67,6 +71,10 @@ def cb_re_content_between_tags(matchobj):
 
     # Handle metric
     for regex, replace in re_metric:
+        text = regex.sub(replace, text)
+
+    # Handle word with non breaking space
+    for regex, replace in re_non_breaking_space:
         text = regex.sub(replace, text)
 
     return "%s%s%s" % (matchobj.group(1), text, matchobj.group(3))
