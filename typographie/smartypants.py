@@ -500,6 +500,8 @@ def smartyPants(text, attr=default_smartypants_attr):
     # character quote tokens correctly.
 
     opened_quotes = 0
+    # This variable handle nested quotes even when if html tags are found inside.
+    opened_quotes_state = 0
     for cur_token in tokens:
         if cur_token[0] == "tag":
             # Don't mess with quotes inside some tags.  This does not handle self <closing/> tags!
@@ -565,7 +567,7 @@ def smartyPants(text, attr=default_smartypants_attr):
 
                     else:
                         # Normal case:
-                        t, opened_quotes = educateQuotes(t, opened_quotes)
+                        t, opened_quotes, opened_quotes_state = educateQuotes(t, opened_quotes, opened_quotes_state)
 
                 if do_stupefy == "1":
                     t = stupefyEntities(t)
@@ -576,7 +578,7 @@ def smartyPants(text, attr=default_smartypants_attr):
     return "".join(result)
 
 
-def educateQuotes(str, opened_quotes=0):
+def educateQuotes(str, opened_quotes=0, opened_quotes_state=0):
     """
     Parameter:  String.
 
@@ -603,54 +605,6 @@ def educateQuotes(str, opened_quotes=0):
 
     close_class = r"""[^\ \t\r\n\[\{\(\-]"""
     dec_dashes = r"""\u2013|\u2014"""
-
-    # apostrophe
-    apostrophe_regex = re.compile(r"""'""", re.VERBOSE + re.UNICODE)
-    str = apostrophe_regex.sub("""\u2019""", str)
-
-    # Get most opening single quotes:
-    opening_single_quotes_regex = re.compile(
-        r"""
-            (
-                \s          |   # a whitespace char, or
-                &nbsp;      |   # a non-breaking space entity, or
-                --          |   # dashes, or
-                &[mn]dash;  |   # named dash entities
-                %s          |   # or decimal entities
-                &\#x201[34];    # or hex
-            )
-            '                 # the quote
-            (?=\w)            # followed by a word character
-            """
-        % (dec_dashes,),
-        re.VERBOSE + re.UNICODE,
-    )
-    # str = opening_single_quotes_regex.sub(r"""\1&#8216;""", str)
-
-    closing_single_quotes_regex = re.compile(
-        r"""
-            (%s)
-            '
-            (?!\s | s\b | \d)
-            """
-        % (close_class,),
-        re.VERBOSE + re.UNICODE,
-    )
-    # str = closing_single_quotes_regex.sub(r"""\1&#8217;""", str)
-
-    closing_single_quotes_regex = re.compile(
-        r"""
-            (%s)
-            '
-            (\s | s\b)
-            """
-        % (close_class,),
-        re.VERBOSE + re.UNICODE,
-    )
-    # str = closing_single_quotes_regex.sub(r"""\1&#8217;\2""", str)
-
-    # Any remaining single quotes should be opening ones:
-    # str = re.sub(r"""'""", r"""&#8216;""", str)
 
     # Get most opening double quotes:
     opening_double_quotes_regex = re.compile(
@@ -703,25 +657,29 @@ def educateQuotes(str, opened_quotes=0):
     # special case \w\xb\xbb
     str = re.sub(r"""(\w)\xbb\xab""", """\\1\xbb\xbb""", str)
 
+    # apostrophe
+    apostrophe_regex = re.compile(r"""'""", re.VERBOSE + re.UNICODE)
+    str = apostrophe_regex.sub("""\u2019""", str)
+
     # nested quotes
-    opening_nested_quote = ["\xab", "\u201c", "\u2018"]
-    closing_nested_quote = ["\xbb", "\u201d", "\u2019"]
+    opening_nested_quote = ["\xab", "\u201c"]
+    closing_nested_quote = ["\xbb", "\u201d"]
     str_list = list(str)
 
     for key, c in enumerate(str_list):
         try:
-            if c == "\xab":
-                str_list[key] = opening_nested_quote[opened_quotes]
-                opened_quotes += 1
-            if c == "\xbb":
-                opened_quotes -= 1
-                str_list[key] = closing_nested_quote[opened_quotes]
+            if c in opening_nested_quote:
+                str_list[key] = "\xab" if opened_quotes_state < 1 else "\u201c"
+                opened_quotes_state += 1
+            if c in closing_nested_quote:
+                opened_quotes_state += -1
+                str_list[key] = "\xbb" if opened_quotes_state < 1 else "\u201d"
         except IndexError:
             pass
 
     str = "".join(str_list)
 
-    return str, opened_quotes
+    return str, opened_quotes, opened_quotes_state
 
 
 def educateBackticks(str):
