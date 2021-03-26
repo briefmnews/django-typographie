@@ -1,3 +1,4 @@
+import json
 import pytest
 
 from ..filters import spaces, smartypants
@@ -151,7 +152,7 @@ class TestTypographieCbReContentBetweenTags:
         assert typographie(text) == expected
 
     @pytest.mark.parametrize(
-        "text, expected", [("CAC 40", "CAC\xa040"),],
+        "text, expected", [("CAC 40", "CAC\xa040")],
     )
     def test_non_breaking_space(self, text, expected):
         assert typographie(text) == expected
@@ -161,3 +162,9 @@ class TestTypographieSmartyPants(object):
     def test_replace_quotes(self):
         text = '"test"'
         assert smartypants(text) == "\xabtest\xbb"
+
+
+class TestTypographieWithRealExample:
+    @pytest.mark.parametrize("example", ["example1", "example2"])
+    def test_with_example(self, example, real_text_example):
+        assert typographie(typographie(real_text_example["text"])) == real_text_example["expected"]

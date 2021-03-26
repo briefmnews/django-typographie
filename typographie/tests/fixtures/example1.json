@@ -1,0 +1,4 @@
+{
+  "text": "l'\"historique\"",
+  "expected": "l’«\u00A0historique\u00A0»"
+}
