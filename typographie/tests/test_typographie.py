@@ -165,6 +165,6 @@ class TestTypographieSmartyPants(object):
 
 
 class TestTypographieWithRealExample:
-    @pytest.mark.parametrize("example", ["example1", "example2"])
+    @pytest.mark.parametrize("example", ["example1", "example2", "example3"])
     def test_with_example(self, example, real_text_example):
         assert typographie(typographie(real_text_example["text"])) == real_text_example["expected"]
