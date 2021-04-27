@@ -110,6 +110,11 @@ class TestTypographieCbReContentBetweenTags:
             ("e tout seul", "e tout seul"),
             ("e, tout seul", "e, tout seul"),
             ("Veux-tu ?", "Veux-tu\xa0?"),
+            ("Brief.me", "B&zwnj;r&zwnj;i&zwnj;e&zwnj;f&zwnj;.&zwnj;m&zwnj;e"),
+            ("slate.fr", "Slate&zwnj;.&zwnj;fr"),
+            ("slate.com", "Slate&zwnj;.&zwnj;com"),
+            ("Vie-publique.fr", "Vie-publique&zwnj;.&zwnj;fr"),
+            ("service-public.fr", "Service-public&zwnj;.&zwnj;fr"),
             (
                 "<a title='Le 26e rapport'>Ceci est une 26e rapport</a>",
                 "<a title='Le 26e rapport'>Ceci est une 26<sup>e</sup>\xa0rapport</a>",
