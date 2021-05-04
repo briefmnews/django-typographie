@@ -115,6 +115,7 @@ class TestTypographieCbReContentBetweenTags:
             ("slate.com", "Slate&zwnj;.&zwnj;com"),
             ("Vie-publique.fr", "Vie-publique&zwnj;.&zwnj;fr"),
             ("service-public.fr", "Service-public&zwnj;.&zwnj;fr"),
+            ("Arte.tv", "Arte&zwnj;.&zwnj;tv"),
             (
                 "<a title='Le 26e rapport'>Ceci est une 26e rapport</a>",
                 "<a title='Le 26e rapport'>Ceci est une 26<sup>e</sup>\xa0rapport</a>",
