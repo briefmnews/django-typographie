@@ -24,6 +24,7 @@ re_prevent_underline = [
     (re.compile(r"slate\.com", flags=re.IGNORECASE), "Slate&zwnj;.&zwnj;com"),
     (re.compile(r"vie-publique\.fr", flags=re.IGNORECASE), "Vie-publique&zwnj;.&zwnj;fr"),
     (re.compile(r"service-public\.fr", flags=re.IGNORECASE), "Service-public&zwnj;.&zwnj;fr"),
+    (re.compile(r"arte\.tv", flags=re.IGNORECASE), "Arte&zwnj;.&zwnj;tv"),
 ]
 re_exponent = [
     (re.compile(r"(^|\s)([1I])(er)(\s)"), "\\1\\2<sup>\\3</sup>\xa0"),
