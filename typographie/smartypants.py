@@ -567,7 +567,9 @@ def smartyPants(text, attr=default_smartypants_attr):
 
                     else:
                         # Normal case:
-                        t, opened_quotes, opened_quotes_state = educateQuotes(t, opened_quotes, opened_quotes_state)
+                        t, opened_quotes, opened_quotes_state = educateQuotes(
+                            t, opened_quotes, opened_quotes_state
+                        )
 
                 if do_stupefy == "1":
                     t = stupefyEntities(t)
@@ -713,10 +715,10 @@ def educateSingleBackticks(str):
 
 def educateDashes(string):
     """
-    Parameter:  String.
-u
-    Returns:    The string, with each instance of "--" translated to
-                an em-dash HTML entity.
+        Parameter:  String.
+    u
+        Returns:    The string, with each instance of "--" translated to
+                    an em-dash HTML entity.
     """
 
     string = re.sub(r"""---""", "\u2013", string)  # en  (yes, backwards)

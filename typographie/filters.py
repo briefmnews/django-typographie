@@ -19,11 +19,20 @@ re_digit = re.compile(r"([0-9])\s", flags=re.U)
 re_opening_quote = re.compile(r'\xab([{}“"])'.format(french_characters))
 re_closing_quote = re.compile(r"([{},\.…!?;%'’\(\)”\"])\xbb".format(french_characters))
 re_prevent_underline = [
-    (re.compile(r"brief\.me", flags=re.IGNORECASE), "B&zwnj;r&zwnj;i&zwnj;e&zwnj;f&zwnj;.&zwnj;m&zwnj;e"),
+    (
+        re.compile(r"brief\.me", flags=re.IGNORECASE),
+        "B&zwnj;r&zwnj;i&zwnj;e&zwnj;f&zwnj;.&zwnj;m&zwnj;e",
+    ),
     (re.compile(r"slate\.fr", flags=re.IGNORECASE), "Slate&zwnj;.&zwnj;fr"),
     (re.compile(r"slate\.com", flags=re.IGNORECASE), "Slate&zwnj;.&zwnj;com"),
-    (re.compile(r"vie-publique\.fr", flags=re.IGNORECASE), "Vie-publique&zwnj;.&zwnj;fr"),
-    (re.compile(r"service-public\.fr", flags=re.IGNORECASE), "Service-public&zwnj;.&zwnj;fr"),
+    (
+        re.compile(r"vie-publique\.fr", flags=re.IGNORECASE),
+        "Vie-publique&zwnj;.&zwnj;fr",
+    ),
+    (
+        re.compile(r"service-public\.fr", flags=re.IGNORECASE),
+        "Service-public&zwnj;.&zwnj;fr",
+    ),
     (re.compile(r"arte\.tv", flags=re.IGNORECASE), "Arte&zwnj;.&zwnj;tv"),
 ]
 re_exponent = [
@@ -34,10 +43,35 @@ re_exponent = [
     (re.compile(r"(^|\s)([XIV]{1,5})(e)(\.|,|$)"), "\\1\\2<sup>\\3</sup>\\4"),
     (re.compile(r"(^|\s)([XIV]{1,5})(e)(\s)"), "\\1\\2<sup>\\3</sup>\xa0"),
 ]
-re_non_breaking_space = [
-    (re.compile(r"(^|\s)(CAC)(\s)(40)"), "\\1\\2\xa0\\4"),
+specific_words = [
+    r"(CAC)(\s)(40)",
+    r"(Europe)(\s)(1)",
+    r"(SBF)(\s)(120)",
+    r"(France)(\s)(24)",
+    r"(Système)(\s)(U)",
+    r"(Hyper)(\s)(U)",
+    r"(Super)(\s)(U)",
+    r"(France)(\s)(2)",
+    r"(France)(\s)(3)",
+    r"(France)(\s)(4)",
+    r"(France)(\s)(5)",
+    r"(France)(\s)(24)",
+    r"(Napoléon)(\s)(I<sup>er</sup>)",
+    r"(Napoléon)(\s)([XIV]{1,5})",
+    r"(Louis)(\s)(I<sup>er</sup>)",
+    r"(Louis)(\s)([XIV]{1,5})",
+    r"(Jean-Paul)(\s)(I<sup>er</sup>)",
+    r"(Jean-Paul)(\s)([XIV]{1,5})",
+    r"(Benoît)(\s)(I<sup>er</sup>)",
+    r"(Benoît)(\s)([XIV]{1,5})",
+    r"(Paul)(\s)(I<sup>er</sup>)",
+    r"(Paul)(\s)([XIV]{1,5})",
+    r"(Jean)(\s)(I<sup>er</sup>)",
+    r"(Jean)(\s)([XIV]{1,5})",
+    r"(Pie)(\s)(I<sup>er</sup>)",
+    r"(Pie)(\s)([XIV]{1,5})",
 ]
-re_indice = [
+re_subscript = [
     re.compile(r"(^|\s|\()(CO)(2)(\s|\.|,|<|\)|$)"),
 ]
 re_metric = [
@@ -71,12 +105,12 @@ def cb_re_content_between_tags(matchobj):
     for regex, replace in re_prevent_underline:
         text = regex.sub(replace, text)
 
-    # Handle exponenets for roman / arabic numerals
+    # Handle exponents for roman / arabic numerals
     for regex, replace in re_exponent:
         text = regex.sub(replace, text)
 
-    # Handle indice
-    for regex in re_indice:
+    # Handle subscript
+    for regex in re_subscript:
         text = regex.sub("\\1\\2<sub>\\3</sub>\\4", text)
 
     # Handle metric
@@ -84,8 +118,11 @@ def cb_re_content_between_tags(matchobj):
         text = regex.sub(replace, text)
 
     # Handle word with non breaking space
-    for regex, replace in re_non_breaking_space:
-        text = regex.sub(replace, text)
+    for word in specific_words:
+        text = re.compile(r"(^|\s){word}".format(word=word)).sub("\\1\\2\xa0\\4", text)
+        text = re.compile(r"(^|\s){word}(\xa0)".format(word=word)).sub(
+            "\\1\\2\xa0\\4 ", text
+        )
 
     return "%s%s%s" % (matchobj.group(1), text, matchobj.group(3))
 
