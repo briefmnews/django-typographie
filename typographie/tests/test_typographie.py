@@ -129,7 +129,9 @@ class TestTypographieCbReContentBetweenTags:
         "text, expected",
         [
             ("CO2", "CO<sub>2</sub>"),
+            ("CH4", "CH<sub>4</sub>"),
             ("CO2,", "CO<sub>2</sub>,"),
+            ("CH4,", "CH<sub>4</sub>,"),
             ("Le CO2 test", "Le CO<sub>2</sub>\xa0test"),
             ("https://www.lemonde.fr/du-CO2", "https://www.lemonde.fr/du-CO2"),
             ("CO2</strong>", "CO<sub>2</sub></strong>"),

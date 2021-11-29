@@ -73,6 +73,7 @@ specific_words = [
 ]
 re_subscript = [
     re.compile(r"(^|\s|\()(CO)(2)(\s|\.|,|<|\)|$)"),
+    re.compile(r"(^|\s|\()(CH)(4)(\s|\.|,|<|\)|$)"),
 ]
 re_metric = [
     (re.compile(r"(^|\s)(m|km)([23])(\)|\.|,|$)"), "\\1\\2<sup>\\3</sup>\\4"),
