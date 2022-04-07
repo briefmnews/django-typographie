@@ -9,3 +9,7 @@ coverage:
 
 report:
 	py.test --cov=typographie --cov-report=html typographie/tests
+
+release:
+	git tag -a $(shell python -c "from typographie import __version__; print(__version__)") -m "$(m)"
+	git push origin --tags
