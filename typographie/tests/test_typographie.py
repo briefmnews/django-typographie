@@ -167,8 +167,14 @@ class TestTypographieCbReContentBetweenTags:
             ("La station Europe 1 est bien", "La station Europe\xa01 est bien"),
             ("Ecoutez Europe 1.", "Ecoutez Europe\xa01."),
             ("Jean-Paul Ier était le pape", "Jean-Paul\xa0I<sup>er</sup> était le pape"),
-            ("Napoléon III a été le premier président.", "Napoléon\xa0III a été le premier président."),
-            ("Benoît XVI est Benedictus Decimus Sextus.", "Benoît\xa0XVI est Benedictus Decimus Sextus."),
+            (
+                "Napoléon III a été le premier président.",
+                "Napoléon\xa0III a été le premier président.",
+            ),
+            (
+                "Benoît XVI est Benedictus Decimus Sextus.",
+                "Benoît\xa0XVI est Benedictus Decimus Sextus.",
+            ),
             ("Rome a connu Pie III.", "Rome a connu Pie\xa0III."),
         ],
     )
@@ -185,7 +191,4 @@ class TestTypographieSmartyPants(object):
 class TestTypographieWithRealExample:
     @pytest.mark.parametrize("example", ["example1", "example2", "example3"])
     def test_with_example(self, example, real_text_example):
-        assert (
-            typographie(typographie(real_text_example["text"]))
-            == real_text_example["expected"]
-        )
+        assert typographie(typographie(real_text_example["text"])) == real_text_example["expected"]
