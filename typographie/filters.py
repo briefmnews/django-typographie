@@ -36,6 +36,10 @@ re_prevent_underline = [
         re.compile(r"cybermalveillance\.gouv\.fr", flags=re.IGNORECASE),
         "Cybermalveillance&zwnj;.&zwnj;gouv&zwnj;.&zwnj;fr",
     ),
+    (
+        re.compile(r"mangerbouger.fr", flags=re.IGNORECASE),
+        "MangerBouger&zwnj;.&zwnj;fr",
+    ),
 ]
 re_exponent = [
     (re.compile(r"(^|\s)([1I])(er)(\s)"), "\\1\\2<sup>\\3</sup>\xa0"),
