@@ -23,5 +23,5 @@ setup(
     keywords=KEYWORDS,
     zip_safe=True,
     python_requires=">=3",
-    install_requires=["Django>=2.0"],
+    install_requires=["Django>=3.0"],
 )
