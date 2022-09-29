@@ -120,6 +120,8 @@ class TestTypographieCbReContentBetweenTags:
                 "<a title='Le 26e rapport'>Ceci est une 26e rapport</a>",
                 "<a title='Le 26e rapport'>Ceci est une 26<sup>e</sup>\xa0rapport</a>",
             ),
+            ("Nord Stream 1", "Nord Stream\xa01"),
+            ("Nord Stream 2", "Nord Stream\xa02"),
         ],
     )
     def test_exponent(self, text, expected):
