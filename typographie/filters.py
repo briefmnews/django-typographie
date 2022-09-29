@@ -161,9 +161,9 @@ def unescape(text):
 
 @register_filter
 def force_text(text):
-    from django.utils.encoding import force_text as django_force_text
+    from django.utils.encoding import force_str
 
-    return django_force_text(text)
+    return force_str(text)
 
 
 @register_filter
