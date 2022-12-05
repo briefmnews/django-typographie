@@ -107,10 +107,14 @@ class TypographieAdmin(admin.ModelAdmin):
             )
         )
 
+    def save_related(self, request, form, formsets, change):
+        super().save_related(request, form, formsets, change)
+
+        if "_save_with_typo" in request.POST:
+            apply_typographie(form.instance)
+
     def response_change(self, request, obj):
         if "_save_with_typo" in request.POST:
-            apply_typographie(obj)
-
             msg_dict = {
                 "name": self.model._meta.verbose_name,
                 "obj": format_html('<a href="{}">{}</a>', urlquote(request.path), obj),
