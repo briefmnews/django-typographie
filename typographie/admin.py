@@ -1,11 +1,14 @@
 from functools import update_wrapper
+from urllib.parse import quote as urlquote
 
+from django.contrib import admin, messages
 from django.contrib.admin.utils import unquote
-from django.contrib import admin
 from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 from django.db import models
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
+from django.utils.html import format_html
 
 from typographie.typographie import typographie
 
@@ -103,3 +106,22 @@ class TypographieAdmin(admin.ModelAdmin):
                 args=(object_id,),
             )
         )
+
+    def response_change(self, request, obj):
+        if "_save_with_typo" in request.POST:
+            apply_typographie(obj)
+
+            msg_dict = {
+                "name": self.model._meta.verbose_name,
+                "obj": format_html('<a href="{}">{}</a>', urlquote(request.path), obj),
+            }
+            msg = format_html(
+                "L'objet {name} {obj} a été modifié avec succès. Le filtre typo a été passé. "
+                "Vous pouvez continuer l'édition ci-dessous.",
+                **msg_dict,
+            )
+            messages.add_message(request, messages.SUCCESS, msg)
+
+            return HttpResponseRedirect(request.path)
+
+        return super().response_change(request, obj)
