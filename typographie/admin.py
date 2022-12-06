@@ -126,6 +126,11 @@ class TypographieAdmin(admin.ModelAdmin):
             )
             messages.add_message(request, messages.SUCCESS, msg)
 
-            return HttpResponseRedirect(request.path)
+            return HttpResponseRedirect(
+                reverse(
+                    "admin:{app_label}_{model_name}_change".format(**self._info()),
+                    args=(str(obj.pk),),
+                )
+            )
 
         return super().response_change(request, obj)
