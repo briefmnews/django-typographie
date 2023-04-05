@@ -72,7 +72,7 @@ class TypographieAdmin(admin.ModelAdmin):
         }
 
     def get_urls(self):
-        from django.conf.urls import url
+        from django.urls import re_path
 
         urlpatterns = super().get_urls()
 
@@ -83,7 +83,7 @@ class TypographieAdmin(admin.ModelAdmin):
             return update_wrapper(wrapper, view)
 
         typo_url = [
-            url(
+            re_path(
                 r"^(.+)/typo/$",
                 wrap(self.typo_view),
                 name="{app_label}_{model_name}_typo".format(**self._info()),
