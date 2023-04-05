@@ -7,3 +7,4 @@ local_settings.py
 .pytest_cache
 .coverage
 htmlcov
+*.egg-info
