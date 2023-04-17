@@ -1,5 +1,5 @@
-black==22.8.0
-Django==3.2.15
-ipdb==0.13.9
-pytest==6.2.5
-pytest-cov==2.12.1
+black==23.3.0
+Django==3.2.18
+ipdb==0.13.13
+pytest==7.3.1
+pytest-cov==4.0.0
