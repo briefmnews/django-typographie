@@ -139,7 +139,7 @@ def cb_re_content_between_tags(matchobj):
 
 # extract html between tags div, p, pre, blockquote
 re_parse_content = re.compile(
-    r"(.*?<[^>]* ?)((?:div|p|pre|blockquote|h[1-6]))( ?[^>]*>)(.*?)(</\2>.*?)",
+    r"(.*?<[^>]* ?)((?:div|p|pre|blockquote|h[1-6]|ul))( ?[^>]*>)(.*?)(</\2>.*?)",
     flags=re.S + re.U,
 )
 
