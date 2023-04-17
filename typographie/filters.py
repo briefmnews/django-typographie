@@ -192,7 +192,7 @@ def spaces(text):
 
 
 widont_finder = re.compile(
-    r"""((?:</?(?:a|em|span|strong|i|b)[^>]*>)|[^<>\s])
+    r"""((?:</?(?:a|em|span|strong|i|b|li)[^>]*>)|[^<>\s])
                                    \s+
                                    ([^<>\s]+
                                    \s*
