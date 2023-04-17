@@ -178,6 +178,10 @@ class TestTypographieCbReContentBetweenTags:
                 "Benoît\xa0XVI est Benedictus Decimus Sextus.",
             ),
             ("Rome a connu Pie III.", "Rome a connu Pie\xa0III."),
+            (
+                "<ul><li><a href='https://www.brief.science/vote/sujet1/' rel='noopener' target='_blank'>Y a-t-il des descendants des dinosaures encore vivants sur Terre ?</a></li></ul>",
+                "<ul><li><a href='https://www.brief.science/vote/sujet1/' rel='noopener' target='_blank'>Y a-t-il des descendants des dinosaures encore vivants sur Terre\xa0?</a></li></ul>",
+            ),
         ],
     )
     def test_non_breaking_space(self, text, expected):
