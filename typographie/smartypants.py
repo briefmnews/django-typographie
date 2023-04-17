@@ -549,7 +549,6 @@ def smartyPants(text, attr=default_smartypants_attr):
                     t = educateSingleBackticks(t)
 
                 if do_quotes != "0":
-
                     if t == "'":
                         # Special case: single-character ' token
                         if re.match(r"\S", prev_token_last_char):
@@ -869,7 +868,6 @@ def _tokenize(str):
 
 
 if __name__ == "__main__":
-
     import locale
 
     try:
@@ -929,4 +927,6 @@ if __name__ == "__main__":
 __author__ = "Chad Miller <smartypantspy@chad.org>"
 __version__ = "1.5_1.6: Fri, 27 Jul 2007 07:06:40 -0400"
 __url__ = "http://wiki.chad.org/SmartyPantsPy"
-__description__ = "Smart-quotes, smart-ellipses, and smart-dashes for weblog entries in pyblosxom"
+__description__ = (
+    "Smart-quotes, smart-ellipses, and smart-dashes for weblog entries in pyblosxom"
+)

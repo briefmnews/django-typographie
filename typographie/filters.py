@@ -11,7 +11,9 @@ french_characters = "A-Za-z0-9àâéèêëîïôöùûüçœ€°ÀÂÉÈÊËÎ�
 
 # percent 9% and 9 %
 re_percent = re.compile(r"([0-9])\s*(%)", flags=re.U)
-re_percent_with_comma = re.compile(r"(^|\s)([0-9]\d{0,2})\s*,\s*([0-9]+)\s*(%)", flags=re.U)
+re_percent_with_comma = re.compile(
+    r"(^|\s)([0-9]\d{0,2})\s*,\s*([0-9]+)\s*(%)", flags=re.U
+)
 re_digit = re.compile(r"([0-9])\s", flags=re.U)
 
 re_opening_quote = re.compile(r'\xab([{}“"])'.format(french_characters))
@@ -128,7 +130,9 @@ def cb_re_content_between_tags(matchobj):
     # Handle word with non breaking space
     for word in specific_words:
         text = re.compile(r"(^|\s){word}".format(word=word)).sub("\\1\\2\xa0\\4", text)
-        text = re.compile(r"(^|\s){word}(\xa0)".format(word=word)).sub("\\1\\2\xa0\\4 ", text)
+        text = re.compile(r"(^|\s){word}(\xa0)".format(word=word)).sub(
+            "\\1\\2\xa0\\4 ", text
+        )
 
     return "%s%s%s" % (matchobj.group(1), text, matchobj.group(3))
 
