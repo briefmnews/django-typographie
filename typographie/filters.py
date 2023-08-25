@@ -81,8 +81,10 @@ specific_words = [
     r"(Nord Stream)(\s)([1-2])",
 ]
 re_subscript = [
-    re.compile(r"(^|\s|\()(CO)(2)(\s|\.|,|<|\)|$)"),
-    re.compile(r"(^|\s|\()(CH)(4)(\s|\.|,|<|\)|$)"),
+    (re.compile(r"(^|\s|\()(CO)(2)(\s|\.|,|<|\)|$)"), "\\1\\2<sub>\\3</sub>\\4"),
+    (re.compile(r"(^|\s|\()(CH)(4)(\s|\.|,|<|\)|$)"), "\\1\\2<sub>\\3</sub>\\4"),
+    (re.compile(r"(^|\s|\()(H)(2)(O)(\)|\.|,|$)"), "\\1\\2<sub>\\3</sub>\\4\\5"),
+    (re.compile(r"(^|\s|\()(H)(2)(O)(\s)"), "\\1\\2<sub>\\3</sub>\\4\xa0"),
 ]
 re_metric = [
     (re.compile(r"(^|\s)(m|km)([23])(\)|\.|,|$)"), "\\1\\2<sup>\\3</sup>\\4"),
@@ -120,8 +122,8 @@ def cb_re_content_between_tags(matchobj):
         text = regex.sub(replace, text)
 
     # Handle subscript
-    for regex in re_subscript:
-        text = regex.sub("\\1\\2<sub>\\3</sub>\\4", text)
+    for regex, replace in re_subscript:
+        text = regex.sub(replace, text)
 
     # Handle metric
     for regex, replace in re_metric:
