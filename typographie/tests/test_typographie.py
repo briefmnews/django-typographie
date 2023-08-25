@@ -138,6 +138,7 @@ class TestTypographieCbReContentBetweenTags:
             ("https://www.lemonde.fr/du-CO2", "https://www.lemonde.fr/du-CO2"),
             ("CO2</strong>", "CO<sub>2</sub></strong>"),
             ("(CO2)", "(CO<sub>2</sub>)"),
+            ("Le H2O test", "Le H<sub>2</sub>O\xa0test"),
         ],
     )
     def test_subscript(self, text, expected):
