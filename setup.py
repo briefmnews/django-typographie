@@ -24,4 +24,5 @@ setup(
     zip_safe=True,
     python_requires=">=3",
     install_requires=["Django>=3.0"],
+    include_package_data=True,
 )
