@@ -21,7 +21,15 @@ re_closing_quote = re.compile(r"([{},\.…!?;%'’\(\)”\"])\xbb".format(french
 re_prevent_underline = [
     (
         re.compile(r"brief\.me", flags=re.IGNORECASE),
-        "B&zwnj;r&zwnj;i&zwnj;e&zwnj;f&zwnj;.&zwnj;m&zwnj;e",
+        "Brief&zwnj;.&zwnj;me",
+    ),
+    (
+        re.compile(r"brief\.eco", flags=re.IGNORECASE),
+        "Brief&zwnj;.&zwnj;eco",
+    ),
+    (
+        re.compile(r"brief\.science", flags=re.IGNORECASE),
+        "Brief&zwnj;.&zwnj;science",
     ),
     (re.compile(r"slate\.fr", flags=re.IGNORECASE), "Slate&zwnj;.&zwnj;fr"),
     (re.compile(r"slate\.com", flags=re.IGNORECASE), "Slate&zwnj;.&zwnj;com"),
