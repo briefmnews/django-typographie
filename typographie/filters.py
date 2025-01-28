@@ -52,12 +52,12 @@ re_prevent_underline = [
     ),
 ]
 re_exponent = [
-    (re.compile(r"(^|\s)([1I])(er)(\s)"), "\\1\\2<sup>\\3</sup>\xa0"),
+    (re.compile(r"(^|\s)([1I])(er)(\s)"), "\\1\\2<sup>\\3</sup>&zwnj;\xa0"),
     (re.compile(r"(^|\s)([1I])(er)(\.|,|$)"), "\\1\\2<sup>\\3</sup>\\4"),
     (re.compile(r"(^|\s)([1-9]\d{0,2})(e)(\.|,|$)"), "\\1\\2<sup>\\3</sup>\\4"),
-    (re.compile(r"(^|\s)([1-9]\d{0,2})(e)(\s)"), "\\1\\2<sup>\\3</sup>\xa0"),
+    (re.compile(r"(^|\s)([1-9]\d{0,2})(e)(\s)"), "\\1\\2<sup>\\3</sup>&zwnj;\xa0"),
     (re.compile(r"(^|\s)([XIV]{1,5})(e)(\.|,|$)"), "\\1\\2<sup>\\3</sup>\\4"),
-    (re.compile(r"(^|\s)([XIV]{1,5})(e)(\s)"), "\\1\\2<sup>\\3</sup>\xa0"),
+    (re.compile(r"(^|\s)([XIV]{1,5})(e)(\s)"), "\\1\\2<sup>\\3</sup>&zwnj;\xa0"),
 ]
 specific_words = [
     r"(CAC)(\s)(40)",
