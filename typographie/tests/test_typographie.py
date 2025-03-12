@@ -93,17 +93,17 @@ class TestTypographieCbReContentBetweenTags:
     @pytest.mark.parametrize(
         "text, expected",
         [
-            ("Le 1er to see", "Le 1<sup>er</sup>\xa0to see"),
-            ("Le 3e to see", "Le 3<sup>e</sup>\xa0to see"),
-            ("1er du nom", "1<sup>er</sup>\xa0du nom"),
-            ("99e fois", "99<sup>e</sup>\xa0fois"),
-            ("999e fois", "999<sup>e</sup>\xa0fois"),
-            ("Le Ier to see", "Le I<sup>er</sup>\xa0to see"),
-            ("Ier arrondissement", "I<sup>er</sup>\xa0arrondissement"),
+            ("Le 1er to see", "Le 1<sup>er</sup>&zwnj;to see"),
+            ("Le 3e to see", "Le 3<sup>e</sup>&zwnj;to see"),
+            ("1er du nom", "1<sup>er</sup>&zwnj;du nom"),
+            ("99e fois", "99<sup>e</sup>&zwnj;fois"),
+            ("999e fois", "999<sup>e</sup>&zwnj;fois"),
+            ("Le Ier to see", "Le I<sup>er</sup>&zwnj;to see"),
+            ("Ier arrondissement", "I<sup>er</sup>&zwnj;arrondissement"),
             ("https://www.lemonde.fr/du-Ier", "https://www.lemonde.fr/du-Ier"),
-            ("Le XIXe to see", "Le XIX<sup>e</sup>\xa0to see"),
-            ("Le VIe arrondissement", "Le VI<sup>e</sup>\xa0arrondissement"),
-            ("Le XXIe siècle", "Le XXI<sup>e</sup>\xa0siècle"),
+            ("Le XIXe to see", "Le XIX<sup>e</sup>&zwnj;to see"),
+            ("Le VIe arrondissement", "Le VI<sup>e</sup>&zwnj;arrondissement"),
+            ("Le XXIe siècle", "Le XXI<sup>e</sup>&zwnj;siècle"),
             ("Le XXIe, siècle", "Le XXI<sup>e</sup>, siècle"),
             ("Le XVIIIe, siècle", "Le XVIII<sup>e</sup>, siècle"),
             ("999e, fois", "999<sup>e</sup>, fois"),
@@ -120,10 +120,11 @@ class TestTypographieCbReContentBetweenTags:
             ("Arte.tv", "Arte&zwnj;.&zwnj;tv"),
             (
                 "<a title='Le 26e rapport'>Ceci est une 26e rapport</a>",
-                "<a title='Le 26e rapport'>Ceci est une 26<sup>e</sup>\xa0rapport</a>",
+                "<a title='Le 26e rapport'>Ceci est une 26<sup>e</sup>&zwnj;rapport</a>",
             ),
             ("Nord Stream 1", "Nord Stream\xa01"),
             ("Nord Stream 2", "Nord Stream\xa02"),
+            ("J. D. Vance", "J.\xa0D. Vance"),
         ],
     )
     def test_exponent(self, text, expected):
@@ -173,7 +174,7 @@ class TestTypographieCbReContentBetweenTags:
             ("Ecoutez Europe 1.", "Ecoutez Europe\xa01."),
             (
                 "Jean-Paul Ier était le pape",
-                "Jean-Paul\xa0I<sup>er</sup> était le pape",
+                "Jean-Paul\xa0I<sup>er</sup>&zwnj;était le pape",
             ),
             (
                 "Napoléon III a été le premier président.",
