@@ -88,6 +88,7 @@ specific_words = [
     r"(Pie)(\s)([XIV]{1,5})",
     r"(Nord Stream)(\s)([1-2])",
     r"(J\.)(\s)(D\.)",
+    r"(Sapin)(\s)(II)",
 ]
 re_subscript = [
     (re.compile(r"(^|\s|\()(CO)(2)(\s|\.|,|<|\)|$)"), "\\1\\2<sub>\\3</sub>\\4"),
