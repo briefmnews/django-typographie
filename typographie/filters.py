@@ -16,6 +16,8 @@ re_percent_with_comma = re.compile(
 )
 re_digit = re.compile(r"([0-9])\s", flags=re.U)
 
+re_dash = re.compile(r"([A-Za-z0-9àâéèêëîïôöùûüçœ€°ÀÂÉÈÊËÎÏÔÖÙÛÜÇŒ])\s*(–)", flags=re.U)
+
 re_opening_quote = re.compile(r'\xab([{}“"])'.format(french_characters))
 re_closing_quote = re.compile(r"([{},\.…!?;%'’\(\)”\"])\xbb".format(french_characters))
 re_prevent_underline = [
@@ -122,6 +124,9 @@ def cb_re_content_between_tags(matchobj):
     text = re_percent_with_comma.sub("\\1\\2,\\3\xa0\\4", text)
 
     text = re_digit.sub("\\1\xa0", text)
+
+    # Add non-breaking space before dash (–)
+    text = re_dash.sub("\\1\xa0\\2", text)
 
     # Handle prevent underline exceptions
     for regex, replace in re_prevent_underline:
