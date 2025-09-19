@@ -52,6 +52,14 @@ def apply_typographie(obj):
                 continue
             setattr(obj, field_name, apply_typographie_to_dict(field, fields))
 
+        elif isinstance(field, list):
+            fields = getattr(obj, f"get_typographie_{field_name}_fields")()
+            setattr(
+                obj,
+                field_name,
+                [apply_typographie_to_dict(item, fields) for item in field],
+            )
+
         # Is it a FK, a OneToOne or reversed OneToOne
         elif issubclass(field.__class__, models.Model):
             apply_typographie(field)
