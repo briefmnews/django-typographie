@@ -23,6 +23,6 @@ setup(
     keywords=KEYWORDS,
     zip_safe=True,
     python_requires=">=3.11",
-    install_requires=["Django>=4.0"],
+    install_requires=["Django>=4.2"],
     include_package_data=True,
 )
