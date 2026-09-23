@@ -23,34 +23,34 @@ re_closing_quote = re.compile(r"([{},\.…!?;%'’\(\)”\"])\xbb".format(french
 re_prevent_underline = [
     (
         re.compile(r"brief\.me", flags=re.IGNORECASE),
-        "Brief&zwnj;.&zwnj;me",
+        "Brief&#8288;.&#8288;me",
     ),
     (
         re.compile(r"brief\.eco", flags=re.IGNORECASE),
-        "Brief&zwnj;.&zwnj;eco",
+        "Brief&#8288;.&#8288;eco",
     ),
     (
         re.compile(r"brief\.science", flags=re.IGNORECASE),
-        "Brief&zwnj;.&zwnj;science",
+        "Brief&#8288;.&#8288;science",
     ),
-    (re.compile(r"slate\.fr", flags=re.IGNORECASE), "Slate&zwnj;.&zwnj;fr"),
-    (re.compile(r"slate\.com", flags=re.IGNORECASE), "Slate&zwnj;.&zwnj;com"),
+    (re.compile(r"slate\.fr", flags=re.IGNORECASE), "Slate&#8288;.&#8288;fr"),
+    (re.compile(r"slate\.com", flags=re.IGNORECASE), "Slate&#8288;.&#8288;com"),
     (
         re.compile(r"vie-publique\.fr", flags=re.IGNORECASE),
-        "Vie-publique&zwnj;.&zwnj;fr",
+        "Vie-publique&#8288;.&#8288;fr",
     ),
     (
         re.compile(r"service-public\.fr", flags=re.IGNORECASE),
-        "Service-public&zwnj;.&zwnj;fr",
+        "Service-public&#8288;.&#8288;fr",
     ),
-    (re.compile(r"arte\.tv", flags=re.IGNORECASE), "Arte&zwnj;.&zwnj;tv"),
+    (re.compile(r"arte\.tv", flags=re.IGNORECASE), "Arte&#8288;.&#8288;tv"),
     (
         re.compile(r"cybermalveillance\.gouv\.fr", flags=re.IGNORECASE),
-        "Cybermalveillance&zwnj;.&zwnj;gouv&zwnj;.&zwnj;fr",
+        "Cybermalveillance&#8288;.&#8288;gouv&#8288;.&#8288;fr",
     ),
     (
         re.compile(r"mangerbouger.fr", flags=re.IGNORECASE),
-        "MangerBouger&zwnj;.&zwnj;fr",
+        "MangerBouger&#8288;.&#8288;fr",
     ),
 ]
 re_exponent = [
