@@ -125,6 +125,10 @@ class TestTypographieCbReContentBetweenTags:
             ("Nord Stream 1", "Nord Stream\xa01"),
             ("Nord Stream 2", "Nord Stream\xa02"),
             ("J. D. Vance", "J.\xa0D. Vance"),
+            (
+                "contact@brief.me https://www.brief.science",
+                "contact@brief.me https://www.brief.science",
+            ),
         ],
     )
     def test_exponent(self, text, expected):
