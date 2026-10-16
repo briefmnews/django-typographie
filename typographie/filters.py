@@ -108,12 +108,11 @@ def cb_re_content_between_tags(matchobj):
     text = matchobj.group(2)
 
     # non break space before double punctuation
-    for c in ":;!?":
+    for c in ":;!?\xbb":
         text = text.replace(" {}".format(c), "{}{}".format(non_break, c))
 
-    # remove non break space after opening and before closing
+    # remove space after opening quote
     text = text.replace("\xab ", "\xab")
-    text = text.replace(" \xbb", "\xbb")
 
     # non break space for opening and closing quotes
     text = re_opening_quote.sub("\xab\u00a0\\1", text)
@@ -204,11 +203,8 @@ def ellipsis(text):
 @register_filter
 def spaces(text):
     text = text.strip()
-    if re_parse_content.match(text) is not None:
-        text = re_parse_content.sub(cb_re_parse_content, text)
-    else:
-        # set spaces
-        text = re_content_between_tags.sub(cb_re_content_between_tags, text)
+    text = re_parse_content.sub(cb_re_parse_content, text)
+    text = re_content_between_tags.sub(cb_re_content_between_tags, text)
     return text
 
 
