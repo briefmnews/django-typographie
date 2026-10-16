@@ -26,6 +26,16 @@ class TestTypographieSpaces:
         text = '<a href="">un test</a> ; test'
         assert spaces(text) == '<a href="">un test</a>\xa0; test'
 
+    def test_semi_column_after_closing_tag_between_blocks(self):
+        # GIVEN
+        text = '<p>intro</p><a href="">Banque centrale</a> ; suite'
+
+        # WHEN
+        result = spaces(text)
+
+        # THEN
+        assert result == '<p>intro</p><a href="">Banque centrale</a>\xa0; suite'
+
     def test_exclamation_mark(self):
         text = "un test ! test"
         assert spaces(text) == "un test\xa0! test"
