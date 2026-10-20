@@ -135,6 +135,7 @@ class TestTypographieCbReContentBetweenTags:
             ("Nord Stream 1", "Nord Stream\xa01"),
             ("Nord Stream 2", "Nord Stream\xa02"),
             ("J. D. Vance", "J.\xa0D. Vance"),
+            ("54 av. J.-C.", "54\xa0av. J.&#8288;-&#8288;C."),
             (
                 "contact@brief.me https://www.brief.science",
                 "contact@brief.me https://www.brief.science",

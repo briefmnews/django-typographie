@@ -53,6 +53,8 @@ re_prevent_underline = [
         "MangerBouger&#8288;.&#8288;fr",
     ),
 ]
+# prevent line break inside "J.-C."
+re_jesus_christ = re.compile(r"J\.-C\.")
 re_exponent = [
     (re.compile(r"(^|\s)([1I])(er)(\s)"), "\\1\\2<sup>\\3</sup>\xa0"),
     (re.compile(r"(^|\s)([1I])(er)(\.|,|$)"), "\\1\\2<sup>\\3</sup>\\4"),
@@ -130,6 +132,8 @@ def cb_re_content_between_tags(matchobj):
     # Handle prevent underline exceptions
     for regex, replace in re_prevent_underline:
         text = regex.sub(replace, text)
+
+    text = re_jesus_christ.sub("J.&#8288;-&#8288;C.", text)
 
     # Handle exponents for roman / arabic numerals
     for regex, replace in re_exponent:
