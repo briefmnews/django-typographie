@@ -1,6 +1,6 @@
 django-typographie
 ==================
-[![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/release/python-3110/) 
+[![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/release/python-3120/) 
 [![Django 5.2](https://img.shields.io/badge/django-5.2-blue.svg)](https://docs.djangoproject.com/en/4.2/)
 [![Python CI](https://github.com/briefmnews/django-typographie/workflows/Python%20CI/badge.svg)](https://github.com/briefmnews/django-typographie/actions?query=workflow%3A%22Python+CI%22)
 [![codecov](https://codecov.io/gh/briefmnews/django-typographie/branch/master/graph/badge.svg)](https://codecov.io/gh/briefmnews/django-typographie)
